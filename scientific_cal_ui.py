@@ -19,17 +19,33 @@ from scientific_cal_controller import (
     get_display_text,
     get_error,
     get_history,
+    get_immediate_unary_mode,
     init_state,
     insert_function,
     set_angle_mode,
+    set_immediate_unary_mode,
 )
+
+STUDENT_NAME = "Muhammad Waseem"
 
 CALC_STYLES = """
 <style>
 .block-container {
     max-width: 520px;
-    padding-top: 1.5rem;
+    padding-top: 3rem;
     padding-bottom: 2rem;
+    margin-top: 1.25rem;
+}
+.calc-header {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.calc-student-name {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #4338ca;
+    margin-bottom: 1rem;
 }
 .calc-title {
     font-size: 28px;
@@ -225,6 +241,13 @@ def _render_sidebar() -> None:
         )
         set_angle_mode(mode)
 
+        immediate = st.toggle(
+            "Immediate function mode",
+            value=get_immediate_unary_mode(),
+            help="sin → type 90 → = gives 1 without showing sin(",
+        )
+        set_immediate_unary_mode(immediate)
+
         st.divider()
         st.subheader("History")
         if st.button("Clear history", use_container_width=True):
@@ -245,6 +268,10 @@ def _render_sidebar() -> None:
 - **Enter** = calculate · **Backspace** · **Esc** clear
 - On-screen buttons work with **mouse** and **touch**
 
+**Function modes**
+- **Off (default):** `sin(` then value then **=** (adds `)` for you)
+- **Immediate on:** **sin** → **90** → **=** (shows `sin` then `sin 90`, result **1**)
+
 **Tips**
 - Use `^` for powers · `log` is base 10 · `ln` is natural log
 - `ANS` inserts the last result · `*` and `/` work like × and ÷
@@ -260,6 +287,7 @@ def _render_display() -> None:
   <div class="calc-expression">&nbsp;</div>
   <div class="calc-result">{display_text}</div>
   <span class="calc-mode-badge">{html.escape(get_angle_mode())}</span>
+  {"<span class='calc-mode-badge'>IMM</span>" if get_immediate_unary_mode() else ""}
 </div>
 """,
         unsafe_allow_html=True,
@@ -362,9 +390,15 @@ def run_calculator_app() -> None:
     init_state()
     _render_sidebar()
 
-    st.markdown('<div class="calc-title">Scientific Calculator</div>', unsafe_allow_html=True)
+    student_line = html.escape(f"Student Name = {STUDENT_NAME}")
     st.markdown(
-        '<div class="calc-subtitle">Streamlit · HCCDA learning project</div>',
+        f"""
+<div class="calc-header">
+  <div class="calc-student-name">{student_line}</div>
+  <div class="calc-title">Scientific Calculator</div>
+  <div class="calc-subtitle">Streamlit · HCCDA learning project</div>
+</div>
+""",
         unsafe_allow_html=True,
     )
 

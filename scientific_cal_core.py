@@ -112,6 +112,14 @@ class SafeEvaluator(ast.NodeVisitor):
         raise ValueError(f"Unsupported syntax: {type(node).__name__}")
 
 
+def auto_close_parentheses(expr: str) -> str:
+    """Append missing ')' so sin(90 or sqrt(16 evaluate without manual closing."""
+    missing = expr.count("(") - expr.count(")")
+    if missing <= 0:
+        return expr
+    return expr + ")" * missing
+
+
 def normalize_expression(expr: str, last_answer: float) -> str:
     text = expr.strip()
     replacements = {
@@ -128,7 +136,8 @@ def normalize_expression(expr: str, last_answer: float) -> str:
 def evaluate_expression(expr: str, angle_mode: str, last_answer: float) -> float:
     if not expr.strip():
         raise ValueError("Empty expression")
-    normalized = normalize_expression(expr, last_answer)
+    closed = auto_close_parentheses(expr.strip())
+    normalized = normalize_expression(closed, last_answer)
     tree = ast.parse(normalized, mode="eval")
     result = SafeEvaluator(build_functions(angle_mode)).visit(tree)
     if isinstance(result, (int, float)):
