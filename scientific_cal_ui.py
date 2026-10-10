@@ -30,45 +30,76 @@ STUDENT_NAME = "Muhammad Waseem"
 
 CALC_STYLES = """
 <style>
-.block-container {
+.stApp {
+    background:
+        radial-gradient(900px 420px at 8% -10%, rgba(99, 102, 241, 0.28), transparent 60%),
+        radial-gradient(700px 380px at 100% 0%, rgba(244, 114, 182, 0.22), transparent 55%),
+        radial-gradient(800px 480px at 80% 100%, rgba(45, 212, 191, 0.22), transparent 60%),
+        linear-gradient(165deg, #eef2ff 0%, #fdf2f8 48%, #ecfeff 100%);
+}
+[data-testid="stMain"] .block-container {
     max-width: 520px;
-    padding-top: 3rem;
+    padding-top: 2.25rem;
     padding-bottom: 2rem;
     margin-top: 1.25rem;
 }
 .calc-header {
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     margin-bottom: 0.5rem;
 }
 .calc-student-name {
     text-align: center;
     font-size: 15px;
-    font-weight: 600;
-    color: #4338ca;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #4f46e5;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.01em;
 }
 .calc-title {
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 800;
     text-align: center;
     margin-bottom: 0.25rem;
+    background: linear-gradient(90deg, #4f46e5 0%, #0d9488 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 .calc-subtitle {
     text-align: center;
-    color: #888;
-    margin-bottom: 1.25rem;
+    color: #64748b;
+    margin-bottom: 1.1rem;
     font-size: 14px;
 }
+.calc-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0.15rem 0 0.35rem;
+}
+.calc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    display: inline-block;
+}
+.calc-dot-sci { background: #6366f1; }
+.calc-dot-key { background: #f97316; }
 .calc-display-wrap {
-    background: linear-gradient(145deg, #1e1e2e 0%, #2d2d44 100%);
-    border-radius: 12px;
+    background: linear-gradient(145deg, #1e1b4b 0%, #312e81 58%, #0f766e 140%);
+    border-radius: 16px;
     padding: 16px 20px;
     margin-bottom: 1rem;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.35);
+    box-shadow: 0 12px 28px rgba(49, 46, 129, 0.28);
     min-height: 88px;
 }
 .calc-expression {
-    color: #a0a0b8;
+    color: #c4b5fd;
     font-size: 14px;
     font-family: ui-monospace, monospace;
     text-align: right;
@@ -76,9 +107,9 @@ CALC_STYLES = """
     word-break: break-all;
 }
 .calc-result {
-    color: #f0f0f5;
+    color: #f8fafc;
     font-size: 36px;
-    font-weight: 600;
+    font-weight: 700;
     font-family: ui-monospace, monospace;
     text-align: right;
     line-height: 1.2;
@@ -86,30 +117,157 @@ CALC_STYLES = """
 }
 .calc-mode-badge {
     display: inline-block;
-    background: #3d3d5c;
-    color: #c4c4dc;
+    background: #f59e0b;
+    color: #1e1b4b;
     font-size: 11px;
+    font-weight: 800;
     padding: 2px 8px;
     border-radius: 999px;
     margin-top: 8px;
+    margin-right: 6px;
+}
+.calc-mode-badge-imm {
+    background: #2dd4bf;
+    color: #134e4a;
+}
+[data-testid="stMain"] hr {
+    border: none;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #818cf8, #22d3ee, #fb923c);
+    margin: 0.85rem 0 0.65rem;
 }
 div.stButton > button {
     width: 100%;
     min-height: 52px;
     font-size: 16px;
-    font-weight: 600;
-    border-radius: 10px;
-    border: 1px solid #e0e0e8;
+    font-weight: 700;
+    border-radius: 12px;
+    border: 1px solid transparent;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    transition: transform 0.08s ease, filter 0.08s ease;
 }
 div.stButton > button:active {
     transform: scale(0.97);
 }
-div.stButton > button:hover {
-    border-color: #6366f1;
-    color: #4338ca;
+div.stButton > button:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+div.st-key-btn_sin div.stButton > button,
+div.st-key-btn_cos div.stButton > button,
+div.st-key-btn_tan div.stButton > button,
+div.st-key-btn_sqrt div.stButton > button,
+div.st-key-btn_abs div.stButton > button,
+div.st-key-btn_fact div.stButton > button {
+    background: #dbeafe !important;
+    color: #1d4ed8 !important;
+    border-color: #93c5fd !important;
+}
+div.st-key-btn_asin div.stButton > button,
+div.st-key-btn_acos div.stButton > button,
+div.st-key-btn_atan div.stButton > button {
+    background: #ede9fe !important;
+    color: #6d28d9 !important;
+    border-color: #c4b5fd !important;
+}
+div.st-key-btn_log div.stButton > button,
+div.st-key-btn_ln div.stButton > button,
+div.st-key-btn_exp div.stButton > button {
+    background: #ccfbf1 !important;
+    color: #0f766e !important;
+    border-color: #5eead4 !important;
+}
+div.st-key-btn_append_pow div.stButton > button,
+div.st-key-btn_append_pi div.stButton > button,
+div.st-key-btn_append_e div.stButton > button {
+    background: #fef9c3 !important;
+    color: #a16207 !important;
+    border-color: #fde047 !important;
+}
+div.st-key-btn_append_lparen div.stButton > button,
+div.st-key-btn_append_rparen div.stButton > button,
+div.st-key-btn_append_0 div.stButton > button,
+div.st-key-btn_append_1 div.stButton > button,
+div.st-key-btn_append_2 div.stButton > button,
+div.st-key-btn_append_3 div.stButton > button,
+div.st-key-btn_append_4 div.stButton > button,
+div.st-key-btn_append_5 div.stButton > button,
+div.st-key-btn_append_6 div.stButton > button,
+div.st-key-btn_append_7 div.stButton > button,
+div.st-key-btn_append_8 div.stButton > button,
+div.st-key-btn_append_9 div.stButton > button,
+div.st-key-btn_append_dot div.stButton > button {
+    background: #ffffff !important;
+    color: #312e81 !important;
+    border-color: #c7d2fe !important;
+}
+div.st-key-btn_append_div div.stButton > button,
+div.st-key-btn_append_mul div.stButton > button,
+div.st-key-btn_append_minus div.stButton > button,
+div.st-key-btn_append_plus div.stButton > button {
+    background: #ffedd5 !important;
+    color: #c2410c !important;
+    border-color: #fdba74 !important;
+}
+div.st-key-btn_clear div.stButton > button,
+div.st-key-btn_clear_entry div.stButton > button {
+    background: #ffe4e6 !important;
+    color: #be123c !important;
+    border-color: #fda4af !important;
+}
+div.st-key-btn_backspace div.stButton > button {
+    background: #fef3c7 !important;
+    color: #b45309 !important;
+    border-color: #fcd34d !important;
+}
+div.st-key-btn_equals div.stButton > button {
+    background: linear-gradient(90deg, #4f46e5 0%, #0d9488 100%) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    font-size: 20px;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.28);
+}
+div.st-key-btn_equals div.stButton > button:hover,
+div.st-key-btn_sin div.stButton > button:hover,
+div.st-key-btn_cos div.stButton > button:hover,
+div.st-key-btn_tan div.stButton > button:hover,
+div.st-key-btn_sqrt div.stButton > button:hover,
+div.st-key-btn_abs div.stButton > button:hover,
+div.st-key-btn_fact div.stButton > button:hover,
+div.st-key-btn_asin div.stButton > button:hover,
+div.st-key-btn_acos div.stButton > button:hover,
+div.st-key-btn_atan div.stButton > button:hover,
+div.st-key-btn_log div.stButton > button:hover,
+div.st-key-btn_ln div.stButton > button:hover,
+div.st-key-btn_exp div.stButton > button:hover,
+div.st-key-btn_append_pow div.stButton > button:hover,
+div.st-key-btn_append_pi div.stButton > button:hover,
+div.st-key-btn_append_e div.stButton > button:hover,
+div.st-key-btn_append_lparen div.stButton > button:hover,
+div.st-key-btn_append_rparen div.stButton > button:hover,
+div.st-key-btn_append_0 div.stButton > button:hover,
+div.st-key-btn_append_1 div.stButton > button:hover,
+div.st-key-btn_append_2 div.stButton > button:hover,
+div.st-key-btn_append_3 div.stButton > button:hover,
+div.st-key-btn_append_4 div.stButton > button:hover,
+div.st-key-btn_append_5 div.stButton > button:hover,
+div.st-key-btn_append_6 div.stButton > button:hover,
+div.st-key-btn_append_7 div.stButton > button:hover,
+div.st-key-btn_append_8 div.stButton > button:hover,
+div.st-key-btn_append_9 div.stButton > button:hover,
+div.st-key-btn_append_dot div.stButton > button:hover,
+div.st-key-btn_append_div div.stButton > button:hover,
+div.st-key-btn_append_mul div.stButton > button:hover,
+div.st-key-btn_append_minus div.stButton > button:hover,
+div.st-key-btn_append_plus div.stButton > button:hover,
+div.st-key-btn_clear div.stButton > button:hover,
+div.st-key-btn_clear_entry div.stButton > button:hover,
+div.st-key-btn_backspace div.stButton > button:hover {
+    filter: brightness(0.96);
 }
 </style>
 """
@@ -287,7 +445,7 @@ def _render_display() -> None:
   <div class="calc-expression">&nbsp;</div>
   <div class="calc-result">{display_text}</div>
   <span class="calc-mode-badge">{html.escape(get_angle_mode())}</span>
-  {"<span class='calc-mode-badge'>IMM</span>" if get_immediate_unary_mode() else ""}
+  {"<span class='calc-mode-badge calc-mode-badge-imm'>IMM</span>" if get_immediate_unary_mode() else ""}
 </div>
 """,
         unsafe_allow_html=True,
@@ -298,7 +456,10 @@ def _render_display() -> None:
 
 
 def _render_keypad() -> None:
-    st.caption("Scientific functions")
+    st.markdown(
+        '<div class="calc-section"><span class="calc-dot calc-dot-sci"></span>Scientific functions</div>',
+        unsafe_allow_html=True,
+    )
     _render_button_row(
         [
             ("sin", "sin", insert_function, ("sin",)),
@@ -328,7 +489,10 @@ def _render_keypad() -> None:
     )
 
     st.divider()
-    st.caption("Keypad")
+    st.markdown(
+        '<div class="calc-section"><span class="calc-dot calc-dot-key"></span>Keypad</div>',
+        unsafe_allow_html=True,
+    )
     _render_button_row(
         [
             ("(", "append_lparen", append_token, ("(",)),
