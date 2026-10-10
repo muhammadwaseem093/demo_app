@@ -274,7 +274,7 @@ def _render_sidebar() -> None:
 
 **Tips**
 - Use `^` for powers · `log` is base 10 · `ln` is natural log
-- `ANS` inserts the last result · `*` and `/` work like × and ÷
+- `*` and `/` work like × and ÷
 """
         )
 
@@ -344,7 +344,7 @@ def _render_keypad() -> None:
             ("8", "append_8", append_token, ("8",)),
             ("9", "append_9", append_token, ("9",)),
             ("÷", "append_div", append_token, ("÷",)),
-            ("ANS", "append_ans", append_token, ("ANS",)),
+            ("×", "append_mul", append_token, ("×",)),
         ]
     )
     _render_button_row(
@@ -352,8 +352,8 @@ def _render_keypad() -> None:
             ("4", "append_4", append_token, ("4",)),
             ("5", "append_5", append_token, ("5",)),
             ("6", "append_6", append_token, ("6",)),
-            ("×", "append_mul", append_token, ("×",)),
-            ("mod", "append_mod", append_token, (" mod ",)),
+            ("−", "append_minus", append_token, ("-",)),
+            ("+", "append_plus", append_token, ("+",)),
         ]
     )
     _render_button_row(
@@ -361,14 +361,12 @@ def _render_keypad() -> None:
             ("1", "append_1", append_token, ("1",)),
             ("2", "append_2", append_token, ("2",)),
             ("3", "append_3", append_token, ("3",)),
-            ("−", "append_minus", append_token, ("-",)),
-            ("+", "append_plus", append_token, ("+",)),
+            ("0", "append_0", append_token, ("0",)),
+            (".", "append_dot", append_token, (".",)),
         ]
     )
     _render_button_row(
         [
-            ("0", "append_0", append_token, ("0",)),
-            (".", "append_dot", append_token, (".",)),
             ("=", "equals", calculate, ()),
         ]
     )
